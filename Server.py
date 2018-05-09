@@ -87,7 +87,7 @@ def process_request(connection, address):
     filenameF = "strani/" + filename
 
     if "cron" in filenameF:
-        subprocess.check_call(["python", "server_side/get_Events_from_dars.py"])
+        subprocess.Popen(["python", "server_side/get_Events_from_dars.py"])
         filenameF = filenameF.replace("cron", "cron.html")
         with open(filenameF, "rb") as handle:
             response_body = handle.read()
