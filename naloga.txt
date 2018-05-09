@@ -1,0 +1,53 @@
+Naloga
+===============
+
+
+Opis
+---------------
+
+Skoraj vse funkcionalnosti razvijamo v t.i. mikrostrežniški arhitekruturi (včasih jih imenujejo tudi mikrostoritve, microservices). Vsak od teh mikrostrežnikov je postavljen v svoj docker. Tak sistem nam omogoča, da lahko te manjše enote prižigamo in ugašamo, brez da bi imelo to vpliv na jedro sistema.
+
+Na primer: servis, ki vrača podatke o anketah je en takih mikrostrežnikov. Vsa koda, ki kakorkoli ureja ali obdeluje ankete je vsebovana v tem mikrostrežniku.
+
+(več o mikrostrežnikih: https://martinfowler.com/articles/microservices.html)
+
+Naloga
+--------------
+
+Za testno nalogo nam pripravi en tak mikrostrežnik.
+
+Na naši strani bi radi imeli pregled nad stanjem na slovenskih cestah. DARS na strani promet.si nudi RSS feed, kjer so navedeni vsi aktualni dogodki.
+
+https://www.promet.si/portal/sl/etd.aspx
+https://www.promet.si/dc/b2b.dogodki.rss?language=sl_SI&eventtype=incidents
+
+Našim uporabnikom ne moremo prikazati podatkov direktno iz strani promet.si, ker bo DARS-ov njihov sistem preobremenjen. Zato potrebujemo tak naš mikrostrežnik, ki bo na vsako minuto (ali več) prebral njihov RSS feed in si k sebi shranil podatke, ki jih potrebuje.
+
+Ni potrebno prikazovati in shranjevati vseh podatko,v ampak samo tiste, ki označujejo dogodke na avtocestah (A) in ostalih glavnih cestah (G).
+
+Vsi podatki, ki se pošiljajo uporabnikom morajo biti v json obliki. Struktura jsona je lahko taka, kot si jo boš sam postavil. najboljša je taka, da jo bomo s čimmanj truda prikazali uporabniku.
+
+Torej:
+
+Mikrostrežnik naj ima routo "/cron". Ob klicu te rute, naj prebere RSS in si shrani pomembne podatke.
+
+Druga routa naj bo "/events", ki poda te shranjene podatke. Ta routa naj ima tudi možnost dodatnega parametra, tako da ob njegovi uporabi dobimo samo podatke o dogodkih na avtocestah. Npr: /events?highway-only=true
+
+
+Dodatno
+----------------
+
+a) naredi preprosto www stran, ki bo prebrala podatke iz tega mikrostrežnika in jih prikazala tabelarično. Stran naj do podatkov dostopa z javascriptom. Za framework lahko uporabiš angular ali jquery.
+
+b) vso izdelano kodo pripravi za deploy v docker-ju.
+
+
+Orodja
+---------------
+
+Lahko uporabiš katerikoli programski jezik, ki deluje na Linux platformi (php, go, java, python, ...). Prav tako ni druge omejitve pri bazi (če jo boš uporabil) ali čem drugem, pomembno je le, da deluje na Linuxu.
+Pripravi nam še kratko dokumentacijo, da bomo znali tvoj mikrostrežnik pognati in preveriti njegovo delovanje.
+
+
+Če je karkoli nejasno, mi lahko vedno pošlješ email na: ratko.rudic@pop-tv.si
+
